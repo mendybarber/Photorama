@@ -49,7 +49,21 @@ class PhotoStore {
         
         let task = session.dataTask(with: request) {
             (data, response, error) -> Void in
-            
+            if error == nil && data != nil {
+                if let resp = response as? HTTPURLResponse {
+                    let status = resp.statusCode
+                    print(status)
+                    let header = resp.allHeaderFields
+                    print(header)
+//                    if status == 200 {
+//                        let content = String(data: data!, encoding: String.Encoding.ascii)
+//                        print(content)
+//                    } else {
+//                        print("Error")
+//                    }
+                }
+                
+            }
             let result = self.processImageRequest(data: data, error: error)
             OperationQueue.main.addOperation {
                 completion(result)
